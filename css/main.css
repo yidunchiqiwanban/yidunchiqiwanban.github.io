@@ -1238,7 +1238,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d44be8;
+  background: #ff1cff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2631,4 +2631,83 @@ body {
 #busuanzi_value_site_pv,
 #busuanzi_value_site_uv {
   color: #00bfff;
+}
+.back-to-top {
+  right: 60px;
+  width: 70px;
+  height: 900px;
+  top: -900px;
+  bottom: unset;
+  transition: all 0.5s ease-in-out;
+  background: url("/images/scroll.png");
+}
+.back-to-top > i {
+  display: none;
+}
+.back-to-top.back-to-top-on {
+  bottom: unset;
+  top: calc(100vh - 900px - 200px);
+}
+.post {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+.site-meta {
+  background: #0684bd;
+}
+.brand {
+  color: #4dfc23;
+}
+.site-subtitle {
+  color: #4dfc23;
+}
+.post-block.page {
+  margin-top: 40px;
+}
+.category-all-page {
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+  background-color: #797d7f;
+  padding: 20px 30px 60px 30px;
+  border-radius: 25px 25px 25px 25px;
+}
+.category-all-title {
+  font-family: Impact;
+  font-size: 24px;
+  color: #0ff;
+}
+.category-list {
+  overflow: auto;
+}
+.category-list li {
+  height: 100%;
+  float: left;
+  border-right: 3px solid #222;
+  padding: 0 20px;
+}
+.category-all ul li {
+  list-style: none !important;
+}
+.category-list li:last-child {
+  border-right: none;
+}
+.category-list li a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #7fff00;
+  font-family: Helvetica, Verdana, sans-serif;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.category-list li a:hover {
+  color: #000;
+}
+.category-list li.active a {
+  font-weight: bold;
+  color: #000;
 }
