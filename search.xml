@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hello World</title>
+    <url>/2023/08/04/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+</code></pre>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>算法训练1</title>
     <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%831/</url>
     <content><![CDATA[<h1 id="算法训练1——栈"><a href="#算法训练1——栈" class="headerlink" title="算法训练1——栈"></a>算法训练1——栈</h1><h2 id="栈的基础知识"><a href="#栈的基础知识" class="headerlink" title="栈的基础知识"></a>栈的基础知识</h2><h3 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h3><ol>
 <li>栈（又名：堆栈）是一种只能在一段进行插入或删除操作的线性表（受限的线性表）</li>
-<li>特点：先进后出 （注意：这点与队列不同，队列是先进先出，可以想象成排队）</li>
+<li>特点：先进后出 （注意：这点与队列不同，队列是先进先出，可以想象成排队）<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210104235434905.png"></li>
 </ol>
 <h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 栈顶  (Top)：（进出口）表中允许进行插入或删除操作的一端
 2. 栈底 (Bottom):栈顶和栈底是相对而言的，一端被称作为栈顶，相对的，另一端就被称作为栈底。
@@ -192,21 +210,76 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2023/08/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+    <title>page</title>
+    <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%832/</url>
+    <content><![CDATA[<h1 id="算法训练2——队列"><a href="#算法训练2——队列" class="headerlink" title="算法训练2——队列"></a>算法训练2——队列</h1><h2 id="队列的基础知识"><a href="#队列的基础知识" class="headerlink" title="队列的基础知识"></a>队列的基础知识</h2><h3 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h3><ol>
+<li>队列（Queue）队列（queue）是一种先进先出的、操作受限的线性表。</li>
+<li>特点：先进先出 （注意：这点与栈不同，队列是先进先出，可以想象成排队，而栈可以想象成一个羽毛球筒）<br><img src="https://img-blog.csdnimg.cn/20190815132004421.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNjkzMTcx,size_16,color_FFFFFF,t_70"></li>
+</ol>
+<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 队头（Front）：允许删除的一端，又称队首
+2. 队尾（Rear）：允许插入的一端
+3. EnQueue(&amp;Q, x)：入队，若队列Q未满，将x加入，使之成为新的队尾。或者用add方法，或者put方法
+4. DeQueue(&amp;Q, &amp;x)：出队，若队列Q非空，删除队头元素，并用x返回。或者用remove方法，移除并返回队列头部的元素
+5. 空队列：不包含任何元素的空表
+6. 队满：队中已放满元素/(s-&gt;Top==MaxSize-1)     
+7. offer ：添加一个元素并返回true
+8. poll ：移除并返问队列头部的元素
+9. peek ：返回队列头部的元素
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<blockquote>
+<p>注意：队列是一种只允许在一端进行插入操作，在另一端进行删除操作的先入先出的受限的线性表。        </p>
+</blockquote>
+<h2 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-stack-using-queues/">https://leetcode.cn/problems/implement-stack-using-queues/</a></p>
+<p>–以下是按照卡哥教的方法写的代码</p>
+<p>代码测试（Java）：</p>
+<pre><code>class MyStack &#123;
+
+    Queue&lt;Integer&gt; queueIn;
+        public MyStack() &#123;
+            queueIn = new LinkedList&lt;&gt;();
+        &#125;
+
+        public void push(int x) &#123;
+            queueIn.add(x);
+        &#125;
+
+        public int pop() &#123;
+            change();
+            return queueIn.poll();
+        &#125;
+
+        public int top() &#123;
+            change();
+            int result = queueIn.poll();
+            queueIn.add(result);
+            return result;
+        &#125;
+
+        public boolean empty() &#123;
+            return queueIn.isEmpty();
+        &#125;
+        public void  change()&#123;
+            int size = queueIn.size();
+            size--;
+            while (size--&gt;0)&#123;
+                queueIn.add(queueIn.poll());
+            &#125;
+        &#125;
+&#125;
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack obj = new MyStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * boolean param_4 = obj.empty();
+ */
 </code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>–思考：用栈模拟队列，此方法是用两个栈来放，一个放进栈的元素，一个放出栈的元素。自定义一个函数，判断目前要包含出栈元素的栈是否为空，不为空则返回，将里面的元素弹出，当为空时，进入while循环，判断包含入栈元素的栈是否为空，若不为空，则将栈顶元素弹出逐步放入出栈，最后在出栈那里实现队列。</p>
 ]]></content>
+      <tags>
+        <tag>算法</tag>
+      </tags>
   </entry>
 </search>
