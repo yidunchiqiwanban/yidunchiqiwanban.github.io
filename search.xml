@@ -38,7 +38,7 @@
 <h2 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-queue-using-stacks/">https://leetcode.cn/problems/implement-queue-using-stacks/</a></p>
 <p>–以下是按照卡哥教的方法写的代码</p>
 <p>代码测试（Java）：</p>
-<pre><code class="java">class MyQueue &#123;
+<pre><code class="Java">class MyQueue &#123;
     Stack&lt;Integer&gt; stackIn;
     Stack&lt;Integer&gt; stackout;
     public MyQueue() &#123;
@@ -143,6 +143,66 @@
 </blockquote>
 <blockquote>
 <p>–解法二：直接使用双向队列，遇到左括号，就把相应的右括号放进队列，若遇到右括号，则判断此时队列是否为空或者此时的队列的元素跟现在的这个元素不相等，就返回false，若相等，就把队列的元素弹出。</p>
+</blockquote>
+<h2 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/">https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/</a></p>
+<p>–以下是按照卡哥教的方法写的代码</p>
+<p>代码测试（Java）：</p>
+<pre><code class="java">class Solution &#123;
+    public String removeDuplicates(String s) &#123;
+        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();
+        char ch;
+        for(int i=0;i&lt;s.length();i++)&#123;
+             if(!stack.isEmpty()&amp;&amp;s.charAt(i)==stack.peek())&#123;
+                stack.pop();
+            &#125;else &#123;
+                stack.push(s.charAt(i));
+            &#125;
+        &#125;
+        StringBuilder stringBuilder = new StringBuilder();
+        while (!stack.isEmpty())&#123;
+            stringBuilder.append(stack.pop());
+        &#125;
+        return stringBuilder.reverse().toString();
+    &#125;
+&#125;
+</code></pre>
+<p>–思考：</p>
+<blockquote>
+<p>使用栈，先遍历字符串，判断栈，如果栈不为空并且目前栈顶的元素等于现在遍历到的字符串元素，则将栈顶元素弹出；若相反，则将元素push进栈中。遍历完成后，用StringBuilder 逐步拼接字符，因为stack是先后出，所有最后得反转字符串。（也可考虑使用队列解决）</p>
+</blockquote>
+<h2 id="逆波兰表达式求值"><a href="#逆波兰表达式求值" class="headerlink" title="逆波兰表达式求值"></a>逆波兰表达式求值</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/evaluate-reverse-polish-notation/">https://leetcode.cn/problems/evaluate-reverse-polish-notation/</a></p>
+<p>–以下是按照卡哥教的方法写的代码</p>
+<p>代码测试（Java）：</p>
+<pre><code class="java">class Solution &#123;
+    public int evalRPN(String[] tokens) &#123;
+        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+        for (String token : tokens) &#123;
+            if (Objects.equals(token, &quot;+&quot;)) &#123;
+                stack.add(stack.pop() + stack.pop());
+            &#125; else if (Objects.equals(token, &quot;-&quot;)) &#123;
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.add(b - a);
+            &#125; else if (Objects.equals(token, &quot;*&quot;)) &#123;
+                stack.add(stack.pop() * stack.pop());
+            &#125; else if (Objects.equals(token, &quot;/&quot;)) &#123;
+                int a = stack.pop();
+                int b = stack.pop();
+                stack.add(b / a);
+            &#125; else &#123;
+                stack.add(Integer.valueOf(token));
+            &#125;
+        &#125;
+        return stack.pop();
+    &#125;
+&#125;
+</code></pre>
+<p>–思考：</p>
+<blockquote>
+<p>此时补充一个后缀算数表达式的知识：<br>所谓后缀算数表达式：指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。</p>
+</blockquote>
+<blockquote>
+<p>解法思考：使用栈，先遍历字符串数组，若遇到加减乘除，就将栈顶元素弹出两个，进行相应的算法，此时需要注意的是，先弹出的数作为除数和减数，而后弹出的为被除数或被减数。若遇到的不是运算符号，则将数字放入，记得用Integer转换。</p>
 </blockquote>
 ]]></content>
   </entry>
