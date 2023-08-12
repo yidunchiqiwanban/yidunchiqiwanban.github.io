@@ -1,409 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>Hello World</title>
-    <url>/2023/08/04/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>算法训练2</title>
-    <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%832/</url>
-    <content><![CDATA[<h1 id="算法训练2——队列"><a href="#算法训练2——队列" class="headerlink" title="算法训练2——队列"></a>算法训练2——队列</h1><h2 id="队列的基础知识"><a href="#队列的基础知识" class="headerlink" title="队列的基础知识"></a>队列的基础知识</h2><h3 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h3><ol>
-<li>队列（Queue）队列（queue）是一种先进先出的、操作受限的线性表。</li>
-<li>特点：先进先出 （注意：这点与栈不同，队列是先进先出，可以想象成排队，而栈可以想象成一个羽毛球筒）<br><img src="https://ask.qcloudimg.com/http-save/yehe-1147522/c9iv2t334h.png"></li>
-</ol>
-<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 队头（Front）：允许删除的一端，又称队首
-2. 队尾（Rear）：允许插入的一端
-3. EnQueue(&amp;Q, x)：入队，若队列Q未满，将x加入，使之成为新的队尾。或者用add方法，或者put方法
-4. DeQueue(&amp;Q, &amp;x)：出队，若队列Q非空，删除队头元素，并用x返回。或者用remove方法，移除并返回队列头部的元素
-5. 空队列：不包含任何元素的空表
-6. 队满：队中已放满元素/(s-&gt;Top==MaxSize-1)     
-7. offer ：添加一个元素并返回true
-8. poll ：移除并返问队列头部的元素
-9. peek ：返回队列头部的元素
-</code></pre>
-<blockquote>
-<p>注意：队列是一种只允许在一端进行插入操作，在另一端进行删除操作的先入先出的受限的线性表。        </p>
-</blockquote>
-<h2 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-stack-using-queues/">https://leetcode.cn/problems/implement-stack-using-queues/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="Java">class MyStack &#123;
-
-    Queue&lt;Integer&gt; queueIn;
-        public MyStack() &#123;
-            queueIn = new LinkedList&lt;&gt;();
-        &#125;
-
-        public void push(int x) &#123;
-            queueIn.add(x);
-        &#125;
-
-        public int pop() &#123;
-            change();
-            return queueIn.poll();
-        &#125;
-
-        public int top() &#123;
-            change();
-            int result = queueIn.poll();
-            queueIn.add(result);
-            return result;
-        &#125;
-
-        public boolean empty() &#123;
-            return queueIn.isEmpty();
-        &#125;
-        public void  change()&#123;
-            int size = queueIn.size();
-            size--;
-            while (size--&gt;0)&#123;
-                queueIn.add(queueIn.poll());
-            &#125;
-        &#125;
-&#125;
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>用栈模拟队列，此方法是用两个栈来放，一个放进栈的元素，一个放出栈的元素。自定义一个函数，判断目前要包含出栈元素的栈是否为空，不为空则返回，将里面的元素弹出，当为空时，进入while循环，判断包含入栈元素的栈是否为空，若不为空，则将栈顶元素弹出逐步放入出栈，最后在出栈那里实现队列。</p>
-</blockquote>
-<h2 id="用队列实现栈-1"><a href="#用队列实现栈-1" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-stack-using-queues/">https://leetcode.cn/problems/implement-stack-using-queues/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="Java">class MyStack &#123;
-
-    Queue&lt;Integer&gt; queueIn;
-        public MyStack() &#123;
-            queueIn = new LinkedList&lt;&gt;();
-        &#125;
-
-        public void push(int x) &#123;
-            queueIn.add(x);
-        &#125;
-
-        public int pop() &#123;
-            change();
-            return queueIn.poll();
-        &#125;
-
-        public int top() &#123;
-            change();
-            int result = queueIn.poll();
-            queueIn.add(result);
-            return result;
-        &#125;
-
-        public boolean empty() &#123;
-            return queueIn.isEmpty();
-        &#125;
-        public void  change()&#123;
-            int size = queueIn.size();
-            size--;
-            while (size--&gt;0)&#123;
-                queueIn.add(queueIn.poll());
-            &#125;
-        &#125;
-&#125;
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>用队列模拟栈，此方法是用一个队列就可以，关键点是栈是先进后出，那么用一个change函数，把表头的元素重新放到队尾，直到最后一个元素就来弹出，实现一个队列轮换实现栈。</p>
-</blockquote>
-<h2 id="前-K-个高频元素"><a href="#前-K-个高频元素" class="headerlink" title="前 K 个高频元素"></a>前 K 个高频元素</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/top-k-frequent-elements/">https://leetcode.cn/problems/top-k-frequent-elements/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="Java">class Solution &#123;
-    public int[] topKFrequent(int[] nums, int k) &#123;
-        // 优先级队列，为了避免复杂 api 操作，pq 存储数组
-        // lambda 表达式设置优先级队列从大到小存储 o1 - o2 为从大到小，o2 - o1 反之
-        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((o1, o2) -&gt; o1[1] - o2[1]);
-        int[] res = new int[k]; // 答案数组为 k 个元素
-        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); // 记录元素出现次数
-        for(int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
-        for(var x : map.entrySet()) &#123; // entrySet 获取 k-v Set 集合
-            // 将 kv 转化成数组
-            int[] tmp = new int[2];
-            tmp[0] = x.getKey();
-            tmp[1] = x.getValue();
-            pq.offer(tmp);
-            if(pq.size() &gt; k) &#123;
-                pq.poll();
-            &#125;
-        &#125;
-        for(int i = 0; i &lt; k; i ++) &#123;
-            res[i] = pq.poll()[0]; // 获取优先队列里的元素
-        &#125;
-        return res;
-    &#125;
-&#125;
-</code></pre>
-<p>–以下是我原先自己写的代码<br>代码测试（Java）：</p>
-<pre><code class="Java">class Solution &#123;
-   public int[] topKFrequent(int[] nums, int k) &#123;
-        Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
-        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-        for (int num : nums) &#123;
-            int count = map.containsKey(num) ? map.get(num) : 0;
-            map.put(num, count + 1);
-        &#125;
-        //这里将map.entrySet转换为List
-        List&lt;Map.Entry&lt;Integer, Integer&gt;&gt; listmap = new ArrayList&lt;Map.Entry&lt;Integer, Integer&gt;&gt;(map.entrySet()); //转换为list
-        //然后通过比较器来实现排序
-        listmap.sort(new Comparator&lt;Map.Entry&lt;Integer, Integer&gt;&gt;() &#123;
-            @Override
-            public int compare(Map.Entry&lt;Integer, Integer&gt; o1, Map.Entry&lt;Integer, Integer&gt; o2) &#123;
-                return o2.getValue().compareTo(o1.getValue());
-            &#125;
-        &#125;);
-        int count = 0;
-        for (Map.Entry&lt;Integer,Integer&gt; entry : listmap) &#123;
-            Integer mapKey = entry.getKey();
-            Integer mapValue = entry.getValue();
-            list.add(mapKey);
-            count++;
-            if(count&gt;=k)&#123;
-                break;
-            &#125;
-        &#125;
-        return list.stream().mapToInt(x-&gt;x).toArray();
-    &#125;
-&#125;
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>卡哥解法：定义一个优先级队列，用数组模式，优先级为从大到小排列。再用一个map存储元素出现的次数，有就原先+1，无就为0+1；循环map，将键和值转换为数组，再把组合放进优先级队列排序。</p>
-</blockquote>
-<blockquote>
-<p>自己的解法：用一个hashmap存储，并记录次数，然后把map转换成list进行排序，用比较器来实现，然后遍历这个list，当计数到前k个时，跳出循环，将list转成数组返回。</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>算法训练1</title>
-    <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%831/</url>
-    <content><![CDATA[<h1 id="算法训练1——栈"><a href="#算法训练1——栈" class="headerlink" title="算法训练1——栈"></a>算法训练1——栈</h1><h2 id="栈的基础知识"><a href="#栈的基础知识" class="headerlink" title="栈的基础知识"></a>栈的基础知识</h2><h3 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h3><ol>
-<li>栈（又名：堆栈）是一种只能在一段进行插入或删除操作的线性表（受限的线性表）</li>
-<li>特点：先进后出 （注意：这点与队列不同，队列是先进先出，可以想象成排队）<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210104235434905.png"></li>
-</ol>
-<h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 栈顶  (Top)：（进出口）表中允许进行插入或删除操作的一端
-2. 栈底 (Bottom):栈顶和栈底是相对而言的，一端被称作为栈顶，相对的，另一端就被称作为栈底。
-3. 进栈/入栈（Push）：栈的插入操作。
-4. 出栈/退栈（Pop）：栈的删除操作。
-5. 空栈：栈中没有元素/(s-&gt;Top==-1;)
-6. 满栈：栈中已放满元素/(s-&gt;Top==MaxSize-1)     
-</code></pre>
-<blockquote>
-<p>注意：栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）        </p>
-</blockquote>
-<h2 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-queue-using-stacks/">https://leetcode.cn/problems/implement-queue-using-stacks/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="Java">class MyQueue &#123;
-    Stack&lt;Integer&gt; stackIn;
-    Stack&lt;Integer&gt; stackout;
-    public MyQueue() &#123;
-        stackIn = new Stack&lt;&gt;();
-        stackout = new Stack&lt;&gt;();
-    &#125;
-
-    public void push(int x) &#123;
-        stackIn.push(x);
-    &#125;
-
-    public int pop() &#123;
-        dump();
-        return stackout.pop();
-    &#125;
-
-    public int peek() &#123;
-        dump();
-        return stackout.peek();
-    &#125;
-
-    public boolean empty() &#123;
-        return stackIn.isEmpty() &amp;&amp; stackout.isEmpty();
-    &#125;
-    private void dump()&#123;
-        if(!stackout.isEmpty())&#123;
-            return;
-        &#125;
-        while (!stackIn.isEmpty())&#123;
-            stackout.push(stackIn.pop());
-        &#125;
-    &#125;
-&#125;
-
-/**
- * Your MyQueue object will be instantiated and called as such:
- * MyQueue obj = new MyQueue();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.peek();
- * boolean param_4 = obj.empty();
- */
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>用栈模拟队列，此方法是用两个栈来放，一个放进栈的元素，一个放出栈的元素。自定义一个函数，判断目前要包含出栈元素的栈是否为空，不为空则返回，将里面的元素弹出，当为空时，进入while循环，判断包含入栈元素的栈是否为空，若不为空，则将栈顶元素弹出逐步放入出栈，最后在出栈那里实现队列。</p>
-</blockquote>
-<h2 id="判断括号是否有序合法"><a href="#判断括号是否有序合法" class="headerlink" title="判断括号是否有序合法"></a>判断括号是否有序合法</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/valid-parentheses/">https://leetcode.cn/problems/valid-parentheses/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="java">class Solution &#123;
-    public boolean isValid(String s) &#123;
-        Deque&lt;Character&gt; deque = new LinkedList&lt;&gt;();
-        char ch;
-        for(int i=0;i&lt;s.length();i++)&#123;
-            ch = s.charAt(i);
-            if(ch==&#39;(&#39;)&#123;
-                deque.push(&#39;)&#39;);
-            &#125; else if (ch==&#39;&#123;&#39;) &#123;
-                deque.push(&#39;&#125;&#39;);
-            &#125; else if (ch==&#39;[&#39;) &#123;
-                deque.push(&#39;]&#39;);
-            &#125; else if (deque.isEmpty() || deque.peek()!=ch) &#123;
-                return false;
-            &#125;else &#123;
-                deque.pop();
-            &#125;
-        &#125;
-        return deque.isEmpty();
-    &#125;
-&#125;
-</code></pre>
-<p>–原先的解法：</p>
-<p>代码测试（Java）：</p>
-<pre><code class="java">class Solution &#123;
-    public boolean isValid(String s) &#123;
-        if(s.length()%2!=0)&#123;
-            return false;
-        &#125;
-
-        Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() &#123;&#123;
-            put(')', '(');
-            put(']', '[');
-            put('&#125;', '&#123;');
-        &#125;&#125;;
-        Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;();
-        for (int i = 0; i &lt; s.length(); i++) &#123;
-            char ch = s.charAt(i);
-            if (pairs.containsKey(ch)) &#123;
-                if (stack.isEmpty() || stack.peek() != pairs.get(ch)) &#123;
-                    return false;
-                &#125;
-                stack.pop();
-            &#125; else &#123;
-                stack.push(ch);
-            &#125;
-        &#125;
-        return stack.isEmpty();
-    &#125;
-&#125;
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>解法一：原先使用HashMap,使用键和值相对，当字符串长度不是偶数，那绝对不合法，直接返回。然后用左括号和右括号相对的放入HashMap。再定义一个双向队列，遍历字符串，当遇到一个左括号，即搜索HashMap中有无相对应的key，若有，则判断此时栈中是否有为空，若栈中为空，证明无配对，返回false；或者栈中第一个不是HashMap中能与此时的左括号相对应的右括号，也返回false。若HashMap中没有相对应的key，则证明是右括号，则将他放入栈。最后返回栈是否为空，若为空则配对完成，若不为空，则存在多余的或者不合法的括号。</p>
-</blockquote>
-<blockquote>
-<p>–解法二：直接使用双向队列，遇到左括号，就把相应的右括号放进队列，若遇到右括号，则判断此时队列是否为空或者此时的队列的元素跟现在的这个元素不相等，就返回false，若相等，就把队列的元素弹出。</p>
-</blockquote>
-<h2 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/">https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="java">class Solution &#123;
-    public String removeDuplicates(String s) &#123;
-        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();
-        char ch;
-        for(int i=0;i&lt;s.length();i++)&#123;
-             if(!stack.isEmpty()&amp;&amp;s.charAt(i)==stack.peek())&#123;
-                stack.pop();
-            &#125;else &#123;
-                stack.push(s.charAt(i));
-            &#125;
-        &#125;
-        StringBuilder stringBuilder = new StringBuilder();
-        while (!stack.isEmpty())&#123;
-            stringBuilder.append(stack.pop());
-        &#125;
-        return stringBuilder.reverse().toString();
-    &#125;
-&#125;
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>使用栈，先遍历字符串，判断栈，如果栈不为空并且目前栈顶的元素等于现在遍历到的字符串元素，则将栈顶元素弹出；若相反，则将元素push进栈中。遍历完成后，用StringBuilder 逐步拼接字符，因为stack是先后出，所有最后得反转字符串。（也可考虑使用队列解决）</p>
-</blockquote>
-<h2 id="逆波兰表达式求值"><a href="#逆波兰表达式求值" class="headerlink" title="逆波兰表达式求值"></a>逆波兰表达式求值</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/evaluate-reverse-polish-notation/">https://leetcode.cn/problems/evaluate-reverse-polish-notation/</a></p>
-<p>–以下是按照卡哥教的方法写的代码</p>
-<p>代码测试（Java）：</p>
-<pre><code class="java">class Solution &#123;
-    public int evalRPN(String[] tokens) &#123;
-        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
-        for (String token : tokens) &#123;
-            if (Objects.equals(token, &quot;+&quot;)) &#123;
-                stack.add(stack.pop() + stack.pop());
-            &#125; else if (Objects.equals(token, &quot;-&quot;)) &#123;
-                int a = stack.pop();
-                int b = stack.pop();
-                stack.add(b - a);
-            &#125; else if (Objects.equals(token, &quot;*&quot;)) &#123;
-                stack.add(stack.pop() * stack.pop());
-            &#125; else if (Objects.equals(token, &quot;/&quot;)) &#123;
-                int a = stack.pop();
-                int b = stack.pop();
-                stack.add(b / a);
-            &#125; else &#123;
-                stack.add(Integer.valueOf(token));
-            &#125;
-        &#125;
-        return stack.pop();
-    &#125;
-&#125;
-</code></pre>
-<p>–思考：</p>
-<blockquote>
-<p>此时补充一个后缀算数表达式的知识：<br>所谓后缀算数表达式：指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。</p>
-</blockquote>
-<blockquote>
-<p>解法思考：使用栈，先遍历字符串数组，若遇到加减乘除，就将栈顶元素弹出两个，进行相应的算法，此时需要注意的是，先弹出的数作为除数和减数，而后弹出的为被除数或被减数。若遇到的不是运算符号，则将数字放入，记得用Integer转换。</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>算法</tag>
-      </tags>
-  </entry>
+<search> 
+  
+  
+    
+    <entry>
+      <title>算法训练3</title>
+      <link href="/2023/08/12/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%833/"/>
+      <url>/2023/08/12/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%833/</url>
+      
+        <content type="html"><![CDATA[<h1 id="算法训练3——回溯算法"><a href="#算法训练3——回溯算法" class="headerlink" title="算法训练3——回溯算法"></a>算法训练3——回溯算法</h1><h2 id="回溯算法的基础知识"><a href="#回溯算法的基础知识" class="headerlink" title="回溯算法的基础知识"></a>回溯算法的基础知识</h2><h3 id="回溯算法的定义"><a href="#回溯算法的定义" class="headerlink" title="回溯算法的定义"></a>回溯算法的定义</h3><ol><li>回溯法思路的简单描述是：把问题的解空间转化成了图或者树的结构表示，然后使用深度优先搜索策略进行遍历，遍历的过程中记录和寻找所有可行解或者最优解。</li><li>听说过这么一句话：回溯是递归的副产品，只要有递归就会有回溯</li><li>事实上，回溯法的本质是穷举，所以效率其实并不高，最多剪枝使其快一些，但本质仍然是暴力枚举。</li><li>这里附上卡哥写的文章为我们总结的问题类型。也就是组合无序，排列有序。</li></ol><hr><p>   <img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210219192050666.png"></p><hr><h3 id="回溯算法的模板"><a href="#回溯算法的模板" class="headerlink" title="回溯算法的模板"></a>回溯算法的模板</h3><p><img src="https://mmbiz.qpic.cn/mmbiz_png/ciaqDnJprwv47tDrlOU9kYmYunXSDicd4XkQdQUp2YZSHbxkbktQdgRUZIfZiabbTP2WGjHDBJlvAzsTfF4aNDS0w/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p><pre><code class="Java">private void backtracking(&quot;原始参数&quot;) &#123;    //终止条件(递归必须要有终止条件)    if (&quot;终止条件&quot;) &#123;        //一些逻辑操作（可有可无，视情况而定）        return;    &#125;    for (int i = &quot;for循环开始的参数&quot;; i &lt; &quot;for循环结束的参数&quot;; i++) &#123;        //选择：本层集合中元素（树中节点孩子的数量就是集合的大小）        //一些逻辑操作（可有可无，视情况而定）        //做出选择or处理节点        //递归        backtracking(&quot;新的参数&quot;);        //一些逻辑操作（可有可无，视情况而定）        //回溯，撤销原先的选择        //撤销选择    &#125;&#125;</code></pre><hr><h2 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/combinations/">https://leetcode.cn/problems/combinations/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;    public static List&lt;List&lt;Integer&gt;&gt; list ;    public static LinkedList&lt;Integer&gt; temp ;    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;        list = new ArrayList&lt;&gt;();        temp = new LinkedList&lt;&gt;();        search(n,k,1);        return list;    &#125;    public void search (int n,int k,int startindex)&#123;        if(temp.size()==k)&#123;            list.add(new ArrayList&lt;&gt;(temp));            return;        &#125;        for(int i = startindex;i&lt;=n-(k-temp.size())+1;i++)&#123;            temp.add(i);            search(n,k,i+1);            temp.removeLast();        &#125;    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>首先定义一个集合，再定义一个有序的集合temp来收集临时组合成的组合。关于回溯：终止条件是当temp的大小刚好等于需要的参数大小，证明如果需要三个数就已经达到，那么直接将他放入总的收集的list中，然后返回。关于循环条件：i 最多到 n - ( k - temp.size() ) + 1，是有效剪枝，此时可以自己列举以下便能得出这个范围。然后在循环中每次递归之后回溯，将temp刚刚加入的元素删去。</p></blockquote><h2 id="组合总和III"><a href="#组合总和III" class="headerlink" title="组合总和III"></a>组合总和III</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/combination-sum-iii/">https://leetcode.cn/problems/combination-sum-iii/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;    public static List&lt;List&lt;Integer&gt;&gt; list ;    public static LinkedList&lt;Integer&gt; temp ;    public List&lt;List&lt;Integer&gt;&gt; combinationSum3(int k, int n) &#123;        list = new ArrayList&lt;&gt;();        temp = new LinkedList&lt;&gt;();        search2(n,k,1);        return list;    &#125;    public void search2(int n,int k,int startindex)&#123;        if(temp.size()==k)&#123;            int sum = 0;            for(int i:temp)&#123;                sum+=i;            &#125;            if(sum==n)&#123;                list.add(new ArrayList&lt;&gt;(temp));                return;            &#125;        &#125;        for(int i=startindex;i&lt;=9;i++)&#123;            temp.add(i);            search2(n,k,i+1);            temp.removeLast();        &#125;     &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>此题跟上一道题一样，同个思路，就是多加了终止条件，当sum&#x3D;n的时候才加进去，这个的前提是temp.size&#x3D;&#x3D;k。</p></blockquote><h2 id="电话号码的字母组合"><a href="#电话号码的字母组合" class="headerlink" title="电话号码的字母组合"></a>电话号码的字母组合</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/letter-combinations-of-a-phone-number/">https://leetcode.cn/problems/letter-combinations-of-a-phone-number/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;    public static  List&lt;String&gt; strings ;    public static StringBuilder stringBuilder;    public List&lt;String&gt; letterCombinations(String digits) &#123;        if(digits==null|| digits.length()==0)&#123;            return new ArrayList&lt;String&gt;();        &#125;        strings = new ArrayList&lt;&gt;();        stringBuilder = new StringBuilder();        String[] strings1 = &#123;&quot;&quot;,&quot;&quot;,&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;, &quot;jkl&quot;, &quot;mno&quot;, &quot;pqrs&quot;, &quot;tuv&quot;, &quot;wxyz&quot;&#125;;        renewstring(digits,strings1,0);        return strings;    &#125;    public void renewstring(String digits,String [] strings1,int n)&#123;        if(n == digits.length())&#123;            strings.add(stringBuilder.toString());            return;        &#125;        String str = strings1[digits.charAt(n)-&#39;0&#39;];        for(int i=0;i&lt;str.length();i++)&#123;            stringBuilder.append(str.charAt(i));            renewstring(digits,strings1,n+1);            stringBuilder.deleteCharAt(stringBuilder.length()-1);        &#125;    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>首先判断字符串是不是空，若是空直接返回。然后进入回溯算法，当此时统计的长度刚好等于字符串的长度，就把这个长度加入StringBuilder。然后循环字符串，每次加入字符串一个字符，然后在循环中每次递归之后回溯，将StringBuilder刚刚加入的元素删去。</p></blockquote><h2 id="组合总和"><a href="#组合总和" class="headerlink" title="组合总和"></a>组合总和</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/combination-sum/">https://leetcode.cn/problems/combination-sum/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;    public static List&lt;List&lt;Integer&gt;&gt; list ;    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt; list = new ArrayList&lt;&gt;();        Arrays.sort(candidates);        search3(list,new ArrayList&lt;&gt;(),candidates,target,0,0);        return list;    &#125;    public void search3(List&lt;List&lt;Integer&gt;&gt; list, List&lt;Integer&gt; temp, int[] candidates, int target, int sum, int index)&#123;        if(sum==target)&#123;            list.add(new ArrayList&lt;&gt;(temp));            return;        &#125;        for(int i = index;i&lt;candidates.length;i++)&#123;            if(sum+candidates[i]&gt;target)&#123;                break;            &#125;            temp.add(candidates[i]);            search3(list,temp,candidates,target,sum+candidates[i],i);            temp.remove(temp.size()-1);        &#125;    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>首先排列传入的数组，然后进行回溯算法。确定终止条件，一个是保存组合,一个是保存临时2的组合，一个是目标数，一个是计算和是否与target相等，一个则是像之前一样的start index。注意！此时这个sum是在递归过程中不断累加的。</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>算法训练2</title>
+      <link href="/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%832/"/>
+      <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%832/</url>
+      
+        <content type="html"><![CDATA[<h1 id="算法训练2——队列"><a href="#算法训练2——队列" class="headerlink" title="算法训练2——队列"></a>算法训练2——队列</h1><h2 id="队列的基础知识"><a href="#队列的基础知识" class="headerlink" title="队列的基础知识"></a>队列的基础知识</h2><h3 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h3><ol><li>队列（Queue）队列（queue）是一种先进先出的、操作受限的线性表。</li><li>特点：先进先出 （注意：这点与栈不同，队列是先进先出，可以想象成排队，而栈可以想象成一个羽毛球筒）<br><img src="https://ask.qcloudimg.com/http-save/yehe-1147522/c9iv2t334h.png"></li></ol><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 队头（Front）：允许删除的一端，又称队首2. 队尾（Rear）：允许插入的一端3. EnQueue(&amp;Q, x)：入队，若队列Q未满，将x加入，使之成为新的队尾。或者用add方法，或者put方法4. DeQueue(&amp;Q, &amp;x)：出队，若队列Q非空，删除队头元素，并用x返回。或者用remove方法，移除并返回队列头部的元素5. 空队列：不包含任何元素的空表6. 队满：队中已放满元素/(s-&gt;Top==MaxSize-1)     7. offer ：添加一个元素并返回true8. poll ：移除并返问队列头部的元素9. peek ：返回队列头部的元素</code></pre><blockquote><p>注意：队列是一种只允许在一端进行插入操作，在另一端进行删除操作的先入先出的受限的线性表。        </p></blockquote><h2 id="用队列实现栈"><a href="#用队列实现栈" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-stack-using-queues/">https://leetcode.cn/problems/implement-stack-using-queues/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class MyStack &#123;    Queue&lt;Integer&gt; queueIn;        public MyStack() &#123;            queueIn = new LinkedList&lt;&gt;();        &#125;        public void push(int x) &#123;            queueIn.add(x);        &#125;        public int pop() &#123;            change();            return queueIn.poll();        &#125;        public int top() &#123;            change();            int result = queueIn.poll();            queueIn.add(result);            return result;        &#125;        public boolean empty() &#123;            return queueIn.isEmpty();        &#125;        public void  change()&#123;            int size = queueIn.size();            size--;            while (size--&gt;0)&#123;                queueIn.add(queueIn.poll());            &#125;        &#125;&#125;/** * Your MyStack object will be instantiated and called as such: * MyStack obj = new MyStack(); * obj.push(x); * int param_2 = obj.pop(); * int param_3 = obj.top(); * boolean param_4 = obj.empty(); */</code></pre><p>–思考：</p><blockquote><p>用栈模拟队列，此方法是用两个栈来放，一个放进栈的元素，一个放出栈的元素。自定义一个函数，判断目前要包含出栈元素的栈是否为空，不为空则返回，将里面的元素弹出，当为空时，进入while循环，判断包含入栈元素的栈是否为空，若不为空，则将栈顶元素弹出逐步放入出栈，最后在出栈那里实现队列。</p></blockquote><h2 id="用队列实现栈-1"><a href="#用队列实现栈-1" class="headerlink" title="用队列实现栈"></a>用队列实现栈</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-stack-using-queues/">https://leetcode.cn/problems/implement-stack-using-queues/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class MyStack &#123;    Queue&lt;Integer&gt; queueIn;        public MyStack() &#123;            queueIn = new LinkedList&lt;&gt;();        &#125;        public void push(int x) &#123;            queueIn.add(x);        &#125;        public int pop() &#123;            change();            return queueIn.poll();        &#125;        public int top() &#123;            change();            int result = queueIn.poll();            queueIn.add(result);            return result;        &#125;        public boolean empty() &#123;            return queueIn.isEmpty();        &#125;        public void  change()&#123;            int size = queueIn.size();            size--;            while (size--&gt;0)&#123;                queueIn.add(queueIn.poll());            &#125;        &#125;&#125;/** * Your MyStack object will be instantiated and called as such: * MyStack obj = new MyStack(); * obj.push(x); * int param_2 = obj.pop(); * int param_3 = obj.top(); * boolean param_4 = obj.empty(); */</code></pre><p>–思考：</p><blockquote><p>用队列模拟栈，此方法是用一个队列就可以，关键点是栈是先进后出，那么用一个change函数，把表头的元素重新放到队尾，直到最后一个元素就来弹出，实现一个队列轮换实现栈。</p></blockquote><h2 id="前-K-个高频元素"><a href="#前-K-个高频元素" class="headerlink" title="前 K 个高频元素"></a>前 K 个高频元素</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/top-k-frequent-elements/">https://leetcode.cn/problems/top-k-frequent-elements/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;    public int[] topKFrequent(int[] nums, int k) &#123;        // 优先级队列，为了避免复杂 api 操作，pq 存储数组        // lambda 表达式设置优先级队列从大到小存储 o1 - o2 为从大到小，o2 - o1 反之        PriorityQueue&lt;int[]&gt; pq = new PriorityQueue&lt;&gt;((o1, o2) -&gt; o1[1] - o2[1]);        int[] res = new int[k]; // 答案数组为 k 个元素        Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); // 记录元素出现次数        for(int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);        for(var x : map.entrySet()) &#123; // entrySet 获取 k-v Set 集合            // 将 kv 转化成数组            int[] tmp = new int[2];            tmp[0] = x.getKey();            tmp[1] = x.getValue();            pq.offer(tmp);            if(pq.size() &gt; k) &#123;                pq.poll();            &#125;        &#125;        for(int i = 0; i &lt; k; i ++) &#123;            res[i] = pq.poll()[0]; // 获取优先队列里的元素        &#125;        return res;    &#125;&#125;</code></pre><p>–以下是我原先自己写的代码<br>代码测试（Java）：</p><pre><code class="Java">class Solution &#123;   public int[] topKFrequent(int[] nums, int k) &#123;        Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();        for (int num : nums) &#123;            int count = map.containsKey(num) ? map.get(num) : 0;            map.put(num, count + 1);        &#125;        //这里将map.entrySet转换为List        List&lt;Map.Entry&lt;Integer, Integer&gt;&gt; listmap = new ArrayList&lt;Map.Entry&lt;Integer, Integer&gt;&gt;(map.entrySet()); //转换为list        //然后通过比较器来实现排序        listmap.sort(new Comparator&lt;Map.Entry&lt;Integer, Integer&gt;&gt;() &#123;            @Override            public int compare(Map.Entry&lt;Integer, Integer&gt; o1, Map.Entry&lt;Integer, Integer&gt; o2) &#123;                return o2.getValue().compareTo(o1.getValue());            &#125;        &#125;);        int count = 0;        for (Map.Entry&lt;Integer,Integer&gt; entry : listmap) &#123;            Integer mapKey = entry.getKey();            Integer mapValue = entry.getValue();            list.add(mapKey);            count++;            if(count&gt;=k)&#123;                break;            &#125;        &#125;        return list.stream().mapToInt(x-&gt;x).toArray();    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>卡哥解法：定义一个优先级队列，用数组模式，优先级为从大到小排列。再用一个map存储元素出现的次数，有就原先+1，无就为0+1；循环map，将键和值转换为数组，再把组合放进优先级队列排序。</p></blockquote><blockquote><p>自己的解法：用一个hashmap存储，并记录次数，然后把map转换成list进行排序，用比较器来实现，然后遍历这个list，当计数到前k个时，跳出循环，将list转成数组返回。</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>算法训练1</title>
+      <link href="/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%831/"/>
+      <url>/2023/08/11/%E7%AE%97%E6%B3%95%E8%AE%AD%E7%BB%831/</url>
+      
+        <content type="html"><![CDATA[<h1 id="算法训练1——栈"><a href="#算法训练1——栈" class="headerlink" title="算法训练1——栈"></a>算法训练1——栈</h1><h2 id="栈的基础知识"><a href="#栈的基础知识" class="headerlink" title="栈的基础知识"></a>栈的基础知识</h2><h3 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h3><ol><li>栈（又名：堆栈）是一种只能在一段进行插入或删除操作的线性表（受限的线性表）</li><li>特点：先进后出 （注意：这点与队列不同，队列是先进先出，可以想象成排队）<br><img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210104235434905.png"></li></ol><h3 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h3><pre><code>1. 栈顶  (Top)：（进出口）表中允许进行插入或删除操作的一端2. 栈底 (Bottom):栈顶和栈底是相对而言的，一端被称作为栈顶，相对的，另一端就被称作为栈底。3. 进栈/入栈（Push）：栈的插入操作。4. 出栈/退栈（Pop）：栈的删除操作。5. 空栈：栈中没有元素/(s-&gt;Top==-1;)6. 满栈：栈中已放满元素/(s-&gt;Top==MaxSize-1)     </code></pre><blockquote><p>注意：栈是以底层容器完成其所有的工作，对外提供统一的接口，底层容器是可插拔的（也就是说我们可以控制使用哪种容器来实现栈的功能）        </p></blockquote><h2 id="用栈实现队列"><a href="#用栈实现队列" class="headerlink" title="用栈实现队列"></a>用栈实现队列</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/implement-queue-using-stacks/">https://leetcode.cn/problems/implement-queue-using-stacks/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="Java">class MyQueue &#123;    Stack&lt;Integer&gt; stackIn;    Stack&lt;Integer&gt; stackout;    public MyQueue() &#123;        stackIn = new Stack&lt;&gt;();        stackout = new Stack&lt;&gt;();    &#125;    public void push(int x) &#123;        stackIn.push(x);    &#125;    public int pop() &#123;        dump();        return stackout.pop();    &#125;    public int peek() &#123;        dump();        return stackout.peek();    &#125;    public boolean empty() &#123;        return stackIn.isEmpty() &amp;&amp; stackout.isEmpty();    &#125;    private void dump()&#123;        if(!stackout.isEmpty())&#123;            return;        &#125;        while (!stackIn.isEmpty())&#123;            stackout.push(stackIn.pop());        &#125;    &#125;&#125;/** * Your MyQueue object will be instantiated and called as such: * MyQueue obj = new MyQueue(); * obj.push(x); * int param_2 = obj.pop(); * int param_3 = obj.peek(); * boolean param_4 = obj.empty(); */</code></pre><p>–思考：</p><blockquote><p>用栈模拟队列，此方法是用两个栈来放，一个放进栈的元素，一个放出栈的元素。自定义一个函数，判断目前要包含出栈元素的栈是否为空，不为空则返回，将里面的元素弹出，当为空时，进入while循环，判断包含入栈元素的栈是否为空，若不为空，则将栈顶元素弹出逐步放入出栈，最后在出栈那里实现队列。</p></blockquote><h2 id="判断括号是否有序合法"><a href="#判断括号是否有序合法" class="headerlink" title="判断括号是否有序合法"></a>判断括号是否有序合法</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/valid-parentheses/">https://leetcode.cn/problems/valid-parentheses/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="java">class Solution &#123;    public boolean isValid(String s) &#123;        Deque&lt;Character&gt; deque = new LinkedList&lt;&gt;();        char ch;        for(int i=0;i&lt;s.length();i++)&#123;            ch = s.charAt(i);            if(ch==&#39;(&#39;)&#123;                deque.push(&#39;)&#39;);            &#125; else if (ch==&#39;&#123;&#39;) &#123;                deque.push(&#39;&#125;&#39;);            &#125; else if (ch==&#39;[&#39;) &#123;                deque.push(&#39;]&#39;);            &#125; else if (deque.isEmpty() || deque.peek()!=ch) &#123;                return false;            &#125;else &#123;                deque.pop();            &#125;        &#125;        return deque.isEmpty();    &#125;&#125;</code></pre><p>–原先的解法：</p><p>代码测试（Java）：</p><pre><code class="java">class Solution &#123;    public boolean isValid(String s) &#123;        if(s.length()%2!=0)&#123;            return false;        &#125;        Map&lt;Character, Character&gt; pairs = new HashMap&lt;Character, Character&gt;() &#123;&#123;            put(')', '(');            put(']', '[');            put('&#125;', '&#123;');        &#125;&#125;;        Deque&lt;Character&gt; stack = new LinkedList&lt;Character&gt;();        for (int i = 0; i &lt; s.length(); i++) &#123;            char ch = s.charAt(i);            if (pairs.containsKey(ch)) &#123;                if (stack.isEmpty() || stack.peek() != pairs.get(ch)) &#123;                    return false;                &#125;                stack.pop();            &#125; else &#123;                stack.push(ch);            &#125;        &#125;        return stack.isEmpty();    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>解法一：原先使用HashMap,使用键和值相对，当字符串长度不是偶数，那绝对不合法，直接返回。然后用左括号和右括号相对的放入HashMap。再定义一个双向队列，遍历字符串，当遇到一个左括号，即搜索HashMap中有无相对应的key，若有，则判断此时栈中是否有为空，若栈中为空，证明无配对，返回false；或者栈中第一个不是HashMap中能与此时的左括号相对应的右括号，也返回false。若HashMap中没有相对应的key，则证明是右括号，则将他放入栈。最后返回栈是否为空，若为空则配对完成，若不为空，则存在多余的或者不合法的括号。</p></blockquote><blockquote><p>–解法二：直接使用双向队列，遇到左括号，就把相应的右括号放进队列，若遇到右括号，则判断此时队列是否为空或者此时的队列的元素跟现在的这个元素不相等，就返回false，若相等，就把队列的元素弹出。</p></blockquote><h2 id="删除字符串中的所有相邻重复项"><a href="#删除字符串中的所有相邻重复项" class="headerlink" title="删除字符串中的所有相邻重复项"></a>删除字符串中的所有相邻重复项</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/">https://leetcode.cn/problems/remove-all-adjacent-duplicates-in-string/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="java">class Solution &#123;    public String removeDuplicates(String s) &#123;        Stack&lt;Character&gt; stack = new Stack&lt;&gt;();        char ch;        for(int i=0;i&lt;s.length();i++)&#123;             if(!stack.isEmpty()&amp;&amp;s.charAt(i)==stack.peek())&#123;                stack.pop();            &#125;else &#123;                stack.push(s.charAt(i));            &#125;        &#125;        StringBuilder stringBuilder = new StringBuilder();        while (!stack.isEmpty())&#123;            stringBuilder.append(stack.pop());        &#125;        return stringBuilder.reverse().toString();    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>使用栈，先遍历字符串，判断栈，如果栈不为空并且目前栈顶的元素等于现在遍历到的字符串元素，则将栈顶元素弹出；若相反，则将元素push进栈中。遍历完成后，用StringBuilder 逐步拼接字符，因为stack是先后出，所有最后得反转字符串。（也可考虑使用队列解决）</p></blockquote><h2 id="逆波兰表达式求值"><a href="#逆波兰表达式求值" class="headerlink" title="逆波兰表达式求值"></a>逆波兰表达式求值</h2><p>–此时可做 leetcode 的题目<br><a href="https://leetcode.cn/problems/evaluate-reverse-polish-notation/">https://leetcode.cn/problems/evaluate-reverse-polish-notation/</a></p><p>–以下是按照卡哥教的方法写的代码</p><p>代码测试（Java）：</p><pre><code class="java">class Solution &#123;    public int evalRPN(String[] tokens) &#123;        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();        for (String token : tokens) &#123;            if (Objects.equals(token, &quot;+&quot;)) &#123;                stack.add(stack.pop() + stack.pop());            &#125; else if (Objects.equals(token, &quot;-&quot;)) &#123;                int a = stack.pop();                int b = stack.pop();                stack.add(b - a);            &#125; else if (Objects.equals(token, &quot;*&quot;)) &#123;                stack.add(stack.pop() * stack.pop());            &#125; else if (Objects.equals(token, &quot;/&quot;)) &#123;                int a = stack.pop();                int b = stack.pop();                stack.add(b / a);            &#125; else &#123;                stack.add(Integer.valueOf(token));            &#125;        &#125;        return stack.pop();    &#125;&#125;</code></pre><p>–思考：</p><blockquote><p>此时补充一个后缀算数表达式的知识：<br>所谓后缀算数表达式：指的是不包含括号，运算符放在两个运算对象的后面，所有的计算按运算符出现的顺序，严格从左向右进行（不再考虑运算符的优先规则）。</p></blockquote><blockquote><p>解法思考：使用栈，先遍历字符串数组，若遇到加减乘除，就将栈顶元素弹出两个，进行相应的算法，此时需要注意的是，先弹出的数作为除数和减数，而后弹出的为被除数或被减数。若遇到的不是运算符号，则将数字放入，记得用Integer转换。</p></blockquote>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/08/04/hello-world/"/>
+      <url>/2023/08/04/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
 </search>
